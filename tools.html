@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<!-- This site is hosted on Netlify. Anyone can build and deploy a site
+     like this one for free: https://netlify.new/?utm_campaign=loops&utm_source=ai-legible&utm_medium=owned&utm_content=comment&utm_id=1bce00b1-c819-45f2-8f29-8f30b5c1e123
+     Netlify hosting facts for this site: static/SSR served via Netlify Edge. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tools & Frameworks | Data Science Digital Library</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .filter-btn {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            padding: 8px 18px;
+            border-radius: var(--radius-pill);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .filter-btn:hover {
+            color: var(--text-primary);
+            border-color: var(--accent-primary);
+        }
+        .filter-btn.active {
+            background: var(--accent-primary);
+            color: #FFFFFF;
+            border-color: var(--accent-primary);
+            box-shadow: 0 4px 14px var(--accent-glow);
+        }
+        .tool-card {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="container header-content">
+            <a class='header-brand' href='/'>
+                <div class="header-logo-badge">
+                    <img src="assets/mbu_logo.png" alt="MBU Logo" style="height: 34px; width: auto; object-fit: contain;">
+                </div>
+                <div>
+                    <span class="header-brand-title">Data Science Digital Library</span>
+                    <span class="header-brand-sub">MOHAN BABU UNIVERSITY</span>
+                </div>
+            </a>
+            
+            <div class="header-nav">
+                <nav style="display: flex; gap: 6px;">
+                    <a class='nav-pill' href='/'>Profile</a>
+                    <a class='nav-pill active' href='/tools'>Tools</a>
+                    <a class='nav-pill' href='/modules'>Modules</a>
+                    <a class='nav-pill' href='/experiments'>Experiments</a>
+                </nav>
+
+                <button id="themeToggleBtn" class="theme-switch-btn" title="Toggle Visual Theme">
+                    <span id="themeLabel">☀️ Gamma Light</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container" style="padding-top: 48px; padding-bottom: 80px;">
+        <!-- Header Banner -->
+        <div style="margin-bottom: 36px; text-align: left;">
+            <span class="editorial-badge">✦ DATA SCIENCE ECOSYSTEM</span>
+            <h1 style="font-size: 2.8rem; margin: 12px 0 8px; letter-spacing: -0.5px;">Data Science Tools &amp; Libraries ✦</h1>
+            <p style="color: var(--text-secondary); max-width: 720px; font-size: 1.05rem;">
+                Core scientific computing, numerical analysis, tabular manipulation, and visualization libraries essential for the Data Science curriculum.
+            </p>
+        </div>
+
+        <!-- Category Filters -->
+        <div style="display: flex; gap: 10px; margin-bottom: 32px; flex-wrap: wrap;">
+            <button class="filter-btn active" onclick="filterTools('all', this)">All Tools</button>
+            <button class="filter-btn" onclick="filterTools('core', this)">Core &amp; Environment</button>
+            <button class="filter-btn" onclick="filterTools('data', this)">Data Wrangling &amp; Math</button>
+            <button class="filter-btn" onclick="filterTools('viz', this)">Visualization</button>
+            <button class="filter-btn" onclick="filterTools('ml', this)">Modeling &amp; Stats</button>
+        </div>
+
+        <!-- Tool Cards Grid -->
+        <div id="toolsGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 24px;">
+            
+            <!-- Tool 1: Python -->
+            <div class="cyber-card tool-card" data-category="core">
+                <div class="card-header-bar emerald-theme" style="margin-bottom: 14px;">
+                    <div>
+                        <span class="card-header-title">Programming Language</span>
+                        <h3 class="card-header-subtitle">Python 3.x</h3>
+                    </div>
+                    <span style="font-size: 0.85rem; color: var(--accent-primary);">v3.10+</span>
+                </div>
+                <p style="font-size: 0.92rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 16px; flex-grow: 1;">
+                    The premier language for Data Science providing clear expressive syntax, vast mathematical libraries, memory efficiency, and seamless scientific integration.
+                </p>
+                <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px;">
+                    <span class="tech-tag">Object-Oriented</span>
+                    <span class="tech-tag">Dynamic Typing</span>
+                    <span class="tech-tag">Scientific Stack</span>
+                </div>
+                <div style="border-top: 1px solid var(--border-subtle); padding-top: 14px; margin-top: auto;">
+                    <a href="https://www.python.org/" target="_blank" rel="noopener noreferrer" class="btn-outline" style="width: 100%; justify-content: center; font-size: 0.82rem;">
+                        python.org Documentation ↗
+                    </a>
+                </div>
+            </div>
+
+            <!-- Tool 2: NumPy -->
+            <div class="cyber-card tool-card" data-category="data">
+                <div class="card-header-bar amber-theme" style="margin-bottom: 14px;">
+                    <div>
+                        <span class="card-header-title" style="color: var(--accent-amber);">Numerical Arrays</span>
+                        <h3 class="card-header-subtitle">NumPy</h3>
+                    </div>
+                    <span style="font-size: 0.85rem; color: var(--accent-amber);">v1.26+</span>
+                </div>
+                <p style="font-size: 0.92rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 16px; flex-grow: 1;">
+                    The fundamental package for scientific computing with Python, offering multidimensional N-dimensional arrays, vectorized broadcasting, and C-accelerated linear algebra.
+                </p>
+                <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px;">
+                    <span class="tech-tag">ndarray</span>
+                    <span class="tech-tag">Broadcasting</span>
+                    <span class="tech-tag">Linear Algebra</span>
+                </div>
+                <div style="border-top: 1px solid var(--border-subtle); padding-top: 14px; margin-top: auto;">
+                    <a href="https://numpy.org/" target="_blank" rel="noopener noreferrer" class="btn-outline" style="width: 100%; justify-content: center; font-size: 0.82rem;">
+                        numpy.org Documentation ↗
+                    </a>
+                </div>
+            </div>
+
+            <!-- Tool 3: Pandas -->
+            <div class="cyber-card tool-card" data-category="data">
+                <div class="card-header-bar violet-theme" style="margin-bottom: 14px;">
+                    <div>
+                        <span class="card-header-title" style="color: var(--accent-violet);">Tabular Wrangling</span>
+                        <h3 class="card-header-subtitle">Pandas</h3>
+                    </div>
+                    <span style="font-size: 0.85rem; color: var(--accent-violet);">v2.2+</span>
+                </div>
+                <p style="font-size: 0.92rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 16px; flex-grow: 1;">
+                    Fast, powerful, and flexible open source data analysis and manipulation library, providing high-performance DataFrame structures, grouping, merging, and time series tools.
+                </p>
+                <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px;">
+                    <span class="tech-tag">DataFrames</span>
+                    <span class="tech-tag">GroupBy</span>
+                    <span class="tech-tag">CSV / Excel I/O</span>
+                </div>
+                <div style="border-top: 1px solid var(--border-subtle); padding-top: 14px; margin-top: auto;">
+                    <a href="https://pandas.pydata.org/" target="_blank" rel="noopener noreferrer" class="btn-outline" style="width: 100%; justify-content: center; font-size: 0.82rem;">
+                        pandas.pydata.org Documentation ↗
+                    </a>
+                </div>
+            </div>
+
+            <!-- Tool 4: Matplotlib -->
+            <div class="cyber-card tool-card" data-category="viz">
+                <div class="card-header-bar emerald-theme" style="margin-bottom: 14px;">
+                    <div>
+                        <span class="card-header-title">2D Visualizations</span>
+                        <h3 class="card-header-subtitle">Matplotlib</h3>
+                    </div>
+                    <span style="font-size: 0.85rem; color: var(--accent-primary);">v3.8+</span>
+                </div>
+                <p style="font-size: 0.92rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 16px; flex-grow: 1;">
+                    Comprehensive plotting library for generating static, animated, and interactive visualizations, histograms, power spectra, bar charts, error charts, and scatter plots.
+                </p>
+                <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px;">
+                    <span class="tech-tag">Pyplot</span>
+                    <span class="tech-tag">Subplots</span>
+                    <span class="tech-tag">Publication Quality</span>
+                </div>
+                <div style="border-top: 1px solid var(--border-subtle); padding-top: 14px; margin-top: auto;">
+                    <a href="https://matplotlib.org/" target="_blank" rel="noopener noreferrer" class="btn-outline" style="width: 100%; justify-content: center; font-size: 0.82rem;">
+                        matplotlib.org Documentation ↗
+                    </a>
+                </div>
+            </div>
+
+            <!-- Tool 5: Seaborn -->
+            <div class="cyber-card tool-card" data-category="viz">
+                <div class="card-header-bar amber-theme" style="margin-bottom: 14px;">
+                    <div>
+                        <span class="card-header-title" style="color: var(--accent-amber);">Statistical Visuals</span>
+                        <h3 class="card-header-subtitle">Seaborn</h3>
+                    </div>
+                    <span style="font-size: 0.85rem; color: var(--accent-amber);">v0.13+</span>
+                </div>
+                <p style="font-size: 0.92rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 16px; flex-grow: 1;">
+                    Statistical data visualization library based on Matplotlib that provides a high-level interface for drawing informative statistical graphics, correlation heatmaps, and violin plots.
+                </p>
+                <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px;">
+                    <span class="tech-tag">Correlation Heatmaps</span>
+                    <span class="tech-tag">PairPlots</span>
+                    <span class="tech-tag">Distributions</span>
+                </div>
+                <div style="border-top: 1px solid var(--border-subtle); padding-top: 14px; margin-top: auto;">
+                    <a href="https://seaborn.pydata.org/" target="_blank" rel="noopener noreferrer" class="btn-outline" style="width: 100%; justify-content: center; font-size: 0.82rem;">
+                        seaborn.pydata.org Documentation ↗
+                    </a>
+                </div>
+            </div>
+
+            <!-- Tool 6: Scikit-Learn -->
+            <div class="cyber-card tool-card" data-category="ml">
+                <div class="card-header-bar violet-theme" style="margin-bottom: 14px;">
+                    <div>
+                        <span class="card-header-title" style="color: var(--accent-violet);">Machine Learning</span>
+                        <h3 class="card-header-subtitle">Scikit-Learn</h3>
+                    </div>
+                    <span style="font-size: 0.85rem; color: var(--accent-violet);">v1.4+</span>
+                </div>
+                <p style="font-size: 0.92rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 16px; flex-grow: 1;">
+                    Robust library for machine learning providing tools for classification, regression, clustering, dimensionality reduction, feature scaling, and cross-validation pipelines.
+                </p>
+                <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px;">
+                    <span class="tech-tag">Supervised Learning</span>
+                    <span class="tech-tag">Pipelines</span>
+                    <span class="tech-tag">Model Metrics</span>
+                </div>
+                <div style="border-top: 1px solid var(--border-subtle); padding-top: 14px; margin-top: auto;">
+                    <a href="https://scikit-learn.org/" target="_blank" rel="noopener noreferrer" class="btn-outline" style="width: 100%; justify-content: center; font-size: 0.82rem;">
+                        scikit-learn.org Documentation ↗
+                    </a>
+                </div>
+            </div>
+
+            <!-- Tool 7: Jupyter Notebook -->
+            <div class="cyber-card tool-card" data-category="core">
+                <div class="card-header-bar emerald-theme" style="margin-bottom: 14px;">
+                    <div>
+                        <span class="card-header-title">Interactive Computing</span>
+                        <h3 class="card-header-subtitle">Jupyter Notebook &amp; Lab</h3>
+                    </div>
+                    <span style="font-size: 0.85rem; color: var(--accent-primary);">v7.x</span>
+                </div>
+                <p style="font-size: 0.92rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 16px; flex-grow: 1;">
+                    The premier interactive notebook environment for data scientists, allowing rapid experimentation, markdown notes, inline visualizations, and reproducible reporting.
+                </p>
+                <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px;">
+                    <span class="tech-tag">Notebook Cells</span>
+                    <span class="tech-tag">Inline Plots</span>
+                    <span class="tech-tag">IPython Kernel</span>
+                </div>
+                <div style="border-top: 1px solid var(--border-subtle); padding-top: 14px; margin-top: auto;">
+                    <a href="https://jupyter.org/" target="_blank" rel="noopener noreferrer" class="btn-outline" style="width: 100%; justify-content: center; font-size: 0.82rem;">
+                        jupyter.org Documentation ↗
+                    </a>
+                </div>
+            </div>
+
+            <!-- Tool 8: SciPy -->
+            <div class="cyber-card tool-card" data-category="data">
+                <div class="card-header-bar amber-theme" style="margin-bottom: 14px;">
+                    <div>
+                        <span class="card-header-title" style="color: var(--accent-amber);">Scientific Computing</span>
+                        <h3 class="card-header-subtitle">SciPy</h3>
+                    </div>
+                    <span style="font-size: 0.85rem; color: var(--accent-amber);">v1.12+</span>
+                </div>
+                <p style="font-size: 0.92rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 16px; flex-grow: 1;">
+                    Algorithms for scientific computing in Python, providing routines for numerical integration, mathematical optimization, differential equations, and signal analysis.
+                </p>
+                <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px;">
+                    <span class="tech-tag">Optimization</span>
+                    <span class="tech-tag">Integration</span>
+                    <span class="tech-tag">Signal Processing</span>
+                </div>
+                <div style="border-top: 1px solid var(--border-subtle); padding-top: 14px; margin-top: auto;">
+                    <a href="https://scipy.org/" target="_blank" rel="noopener noreferrer" class="btn-outline" style="width: 100%; justify-content: center; font-size: 0.82rem;">
+                        scipy.org Documentation ↗
+                    </a>
+                </div>
+            </div>
+
+            <!-- Tool 9: Statsmodels -->
+            <div class="cyber-card tool-card" data-category="ml">
+                <div class="card-header-bar violet-theme" style="margin-bottom: 14px;">
+                    <div>
+                        <span class="card-header-title" style="color: var(--accent-violet);">Statistical Modeling</span>
+                        <h3 class="card-header-subtitle">Statsmodels</h3>
+                    </div>
+                    <span style="font-size: 0.85rem; color: var(--accent-violet);">v0.14+</span>
+                </div>
+                <p style="font-size: 0.92rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 16px; flex-grow: 1;">
+                    Python module that provides classes and functions for the estimation of different statistical models, hypothesis testing, generalized linear models (GLM), and ANOVA.
+                </p>
+                <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px;">
+                    <span class="tech-tag">OLS Regression</span>
+                    <span class="tech-tag">Hypothesis Testing</span>
+                    <span class="tech-tag">Time Series (ARIMA)</span>
+                </div>
+                <div style="border-top: 1px solid var(--border-subtle); padding-top: 14px; margin-top: auto;">
+                    <a href="https://www.statsmodels.org/" target="_blank" rel="noopener noreferrer" class="btn-outline" style="width: 100%; justify-content: center; font-size: 0.82rem;">
+                        statsmodels.org Documentation ↗
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        function filterTools(category, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const cards = document.querySelectorAll('.tool-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+<script async src="/.netlify/scripts/hud?variant=public" data-nf-variant="public" data-netlify-site-id="1bce00b1-c819-45f2-8f29-8f30b5c1e123" data-app-host="app.netlify.com" data-account-tier="free"></script>

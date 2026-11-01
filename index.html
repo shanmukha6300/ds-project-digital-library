@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<!-- This site is hosted on Netlify. Anyone can build and deploy a site
+     like this one for free: https://netlify.new/?utm_campaign=loops&utm_source=ai-legible&utm_medium=owned&utm_content=comment&utm_id=1bce00b1-c819-45f2-8f29-8f30b5c1e123
+     Netlify hosting facts for this site: static/SSR served via Netlify Edge. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile | Data Science Digital Library</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .profile-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+        }
+        .profile-dashboard-grid {
+            display: grid;
+            grid-template-columns: 1.15fr 1fr;
+            gap: 28px;
+            align-items: start;
+        }
+        @media (max-width: 900px) {
+            .profile-dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="container header-content">
+            <a class='header-brand' href='/'>
+                <div class="header-logo-badge">
+                    <img src="assets/mbu_logo.png" alt="MBU Logo" style="height: 34px; width: auto; object-fit: contain;">
+                </div>
+                <div>
+                    <span class="header-brand-title">Data Science Digital Library</span>
+                    <span class="header-brand-sub">MOHAN BABU UNIVERSITY</span>
+                </div>
+            </a>
+            
+            <div class="header-nav">
+                <nav style="display: flex; gap: 6px;">
+                    <a class='nav-pill active' href='/'>Profile</a>
+                    <a class='nav-pill' href='/tools'>Tools</a>
+                    <a class='nav-pill' href='/modules'>Modules</a>
+                    <a class='nav-pill' href='/experiments'>Experiments</a>
+                </nav>
+
+                <!-- Theme Switcher -->
+                <button id="themeToggleBtn" class="theme-switch-btn" title="Toggle Visual Theme">
+                    <span id="themeLabel">☀️ Gamma Light</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Profile Container -->
+    <div class="profile-container">
+
+        <!-- Top Header Banner -->
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-bottom: 32px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 24px;">
+            <div style="display: flex; align-items: center; gap: 16px;">
+                <div style="background: #FFFFFF; padding: 6px 12px; border-radius: 12px; display: inline-flex; box-shadow: 0 4px 14px rgba(0,0,0,0.3);">
+                    <img src="assets/mbu_logo.png" alt="MBU Logo" style="height: 48px; width: auto; object-fit: contain;">
+                </div>
+                <div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span class="editorial-badge" style="margin-bottom: 4px; font-size: 0.72rem; padding: 3px 10px;">STUDENT ACADEMIC PORTFOLIO</span>
+                    </div>
+                    <h1 style="font-size: 2.2rem; letter-spacing: -0.5px; margin: 0; color: var(--text-primary);">
+                        Student Profile &amp; Details
+                    </h1>
+                    <span style="font-size: 0.88rem; color: var(--accent-primary); font-weight: 600;">
+                        Mohan Babu University · Department of CSE (Data Science)
+                    </span>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 10px;">
+                <a class='btn-primary' href='/experiments' style='font-size: 0.85rem; padding: 8px 18px;'>
+                    Lab Protocols →
+                </a>
+                <a class='btn-outline' href='/tools' style='font-size: 0.85rem; padding: 8px 18px;'>
+                    Tools Stack
+                </a>
+            </div>
+        </div>
+
+        <!-- Dashboard Grid -->
+        <div class="profile-dashboard-grid">
+
+            <!-- Left Card: Student Identity Card -->
+            <div class="cyber-card">
+                <div class="card-header-bar emerald-theme">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div style="background: #FFFFFF; padding: 4px 8px; border-radius: 8px;">
+                            <img src="assets/mbu_logo.png" alt="MBU Logo" style="height: 32px; width: auto; object-fit: contain;">
+                        </div>
+                        <div>
+                            <span class="card-header-title">Mohan Babu University</span>
+                            <h3 class="card-header-subtitle" style="font-size: 1.1rem;">Student Details &amp; Identity</h3>
+                        </div>
+                    </div>
+                    <span style="background: rgba(16, 185, 129, 0.2); border: 1px solid var(--accent-primary); border-radius: 9999px; padding: 4px 12px; font-size: 0.76rem; font-weight: 700; color: var(--accent-primary);">
+                        B.Tech
+                    </span>
+                </div>
+
+                <div class="student-profile-row">
+                    <!-- Student Photo with Dynamic Upload -->
+                    <div class="student-photo-wrapper">
+                        <img id="studentPhotoPreview" 
+                             src="https://ui-avatars.com/api/?name=T+Shanmukha+Sai&background=0047FF&color=fff&size=200&bold=true" 
+                             alt="T. Shanmukha Sai Photo" 
+                             class="student-photo-img">
+                        <label for="photoUpload" class="student-photo-upload-label" title="Upload Custom Photo">+</label>
+                        <input type="file" id="photoUpload" accept="image/*" style="display: none;">
+                    </div>
+
+                    <div>
+                        <h2 class="student-name-title config-student-name" style="font-size: 1.55rem;">T. Shanmukha Sai</h2>
+                        <p class="student-meta-item">
+                            Roll Number: <strong class="config-student-roll" style="color: var(--accent-primary); font-size: 1.05rem;">24102A030122</strong>
+                        </p>
+                        <p class="student-meta-item">
+                            Faculty Mentor: <strong class="config-faculty-mentor">S.Bosubabu</strong>
+                        </p>
+                        <p class="student-meta-item" style="font-size: 0.88rem;">
+                            Cumulative CGPA: <strong style="color: var(--accent-primary);">9.54 / 10.0</strong>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Academic Details Chips -->
+                <div class="pills-row" style="margin-bottom: 24px;">
+                    <span class="pill-item">📚 Branch: CSE (Data Science)</span>
+                    <span class="pill-item">📅 Semester: <strong style="color: var(--accent-primary); margin-left: 4px;">Semester V</strong></span>
+                    <span class="pill-item">🏷️ Section: <strong style="color: var(--accent-primary); margin-left: 4px;">2</strong></span>
+                    <span class="pill-item">🏆 Dean's Honor Roll</span>
+                </div>
+
+                <!-- Social & Profile Links for T. Shanmukha Sai -->
+                <div class="social-links-row">
+                    <a href="https://www.linkedin.com/in/shanmukha-sai-3a00a0415/" target="_blank" rel="noopener noreferrer" class="social-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#0A66C2"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                        LinkedIn Profile →
+                    </a>
+                    <a href="https://github.com/shanmukha6300/shanmukha" target="_blank" rel="noopener noreferrer" class="social-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        GitHub Profile →
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right Column: Academic Evaluation & Quick Access -->
+            <div style="display: flex; flex-direction: column; gap: 24px;">
+
+                <!-- Continuous Evaluation Performance Card (No Graph) -->
+                <div class="cyber-card">
+                    <div class="card-header-bar violet-theme">
+                        <div>
+                            <span class="card-header-title" style="color: var(--accent-violet);">Continuous Evaluation</span>
+                            <h3 class="card-header-subtitle" style="font-size: 1.15rem;">Academic Performance &amp; Laboratory Marks</h3>
+                        </div>
+                        <span class="pill-item" style="font-size: 0.76rem; border-color: var(--accent-violet); color: var(--accent-violet);">
+                            Verified Record
+                        </span>
+                    </div>
+
+                    <!-- 3 Stats Columns -->
+                    <div class="stats-grid-3" style="margin-bottom: 20px;">
+                        <div class="stat-box">
+                            <span class="stat-label">Practical Score</span>
+                            <div class="stat-value" style="color: var(--accent-primary);">
+                                48<span>/50</span>
+                            </div>
+                        </div>
+
+                        <div class="stat-box">
+                            <span class="stat-label">Total Marks</span>
+                            <div class="stat-value" style="color: var(--accent-secondary);">
+                                96<span>/100</span>
+                            </div>
+                        </div>
+
+                        <div class="stat-box">
+                            <span class="stat-label">Attendance</span>
+                            <div class="stat-value" style="color: #34D399;">
+                                98<span>%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Evaluation Telemetry List -->
+                    <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 16px 20px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                            <span style="font-size: 0.85rem; color: var(--text-secondary);">Subject Code:</span>
+                            <strong style="font-size: 0.88rem; color: var(--text-primary); font-family: var(--font-mono);">24DS102006</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                            <span style="font-size: 0.85rem; color: var(--text-secondary);">Internal Lab Status:</span>
+                            <span style="font-size: 0.82rem; font-weight: 700; color: #10B981; background: rgba(16, 185, 129, 0.12); padding: 2px 10px; border-radius: 9999px;">Completed &amp; Approved</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                            <span style="font-size: 0.85rem; color: var(--text-secondary);">Mentorship Status:</span>
+                            <span style="font-size: 0.85rem; color: var(--text-primary); font-weight: 600;">Supervised by S.Bosubabu</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-size: 0.85rem; color: var(--text-secondary);">Section &amp; Sem:</span>
+                            <span style="font-size: 0.85rem; color: var(--text-primary); font-weight: 600;">Semester V, Section 2</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Curriculum & Resources Card -->
+                <div class="cyber-card">
+                    <div class="card-header-bar amber-theme">
+                        <div>
+                            <span class="card-header-title" style="color: var(--accent-amber);">Data Science Digital Library Shortcuts</span>
+                            <h3 class="card-header-subtitle" style="font-size: 1.1rem;">Quick Navigation</h3>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <a class='btn-outline' href='/tools' style='justify-content: space-between; padding: 12px 18px;'>
+                            <span>🛠️ Data Science Tool Stack (NumPy, Pandas, etc.)</span>
+                            <span>→</span>
+                        </a>
+                        <a class='btn-outline' href='/modules' style='justify-content: space-between; padding: 12px 18px;'>
+                            <span>📚 Curriculum Modules &amp; Chapter Guides</span>
+                            <span>→</span>
+                        </a>
+                        <a class='btn-primary' href='/experiments' style='justify-content: space-between; padding: 12px 18px;'>
+                            <span>🔬 Laboratory Experiment Protocols</span>
+                            <span>→</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/experiments.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
+<script async src="/.netlify/scripts/hud?variant=public" data-nf-variant="public" data-netlify-site-id="1bce00b1-c819-45f2-8f29-8f30b5c1e123" data-app-host="app.netlify.com" data-account-tier="free"></script>

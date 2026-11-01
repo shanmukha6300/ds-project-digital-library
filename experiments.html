@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<!-- This site is hosted on Netlify. Anyone can build and deploy a site
+     like this one for free: https://netlify.new/?utm_campaign=loops&utm_source=ai-legible&utm_medium=owned&utm_content=comment&utm_id=1bce00b1-c819-45f2-8f29-8f30b5c1e123
+     Netlify hosting facts for this site: static/SSR served via Netlify Edge. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experiments Catalogue | Data Science Digital Library</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="container header-content">
+            <a class='header-brand' href='/'>
+                <div class="header-logo-badge">
+                    <img src="assets/mbu_logo.png" alt="MBU Logo" style="height: 34px; width: auto; object-fit: contain;">
+                </div>
+                <div>
+                    <span class="header-brand-title">Data Science Digital Library</span>
+                    <span class="header-brand-sub">MOHAN BABU UNIVERSITY</span>
+                </div>
+            </a>
+            
+            <div class="header-nav">
+                <nav style="display: flex; gap: 6px;">
+                    <a class='nav-pill' href='/'>Profile</a>
+                    <a class='nav-pill' href='/tools'>Tools</a>
+                    <a class='nav-pill' href='/modules'>Modules</a>
+                    <a class='nav-pill active' href='/experiments'>Experiments</a>
+                </nav>
+
+                <button id="themeToggleBtn" class="theme-switch-btn" title="Toggle Visual Theme">
+                    <span id="themeLabel">☀️ Gamma Light</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container" style="padding-top: 48px; padding-bottom: 80px;">
+        <!-- Header Banner -->
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 20px; margin-bottom: 32px;">
+            <div>
+                <span class="editorial-badge">✦ LABORATORY PRACTICUM</span>
+                <h1 style="font-size: 2.8rem; margin: 12px 0 8px; letter-spacing: -0.5px;">Applied ML Experiment Protocols ✦</h1>
+                <p style="color: var(--text-secondary); max-width: 680px; font-size: 1.05rem;">
+                    Catalogue of hands-on Machine Intelligence &amp; Data Science protocols. Select any experiment to inspect theoretical mechanics, runnable code sandboxes, and verified outputs.
+                </p>
+            </div>
+            <div>
+                <button class="btn-primary" onclick="openAddModal()">
+                    + Add Protocol ✨
+                </button>
+            </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div style="margin-bottom: 32px;">
+            <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search protocols by title, algorithmic domain, or tools (e.g. PyTorch, XGBoost, UMAP)...">
+        </div>
+
+        <!-- Experiments Grid -->
+        <div class="experiments-grid" id="experimentsGrid">
+            <!-- Dynamically populated by main.js -->
+        </div>
+
+        <!-- Empty Results -->
+        <div id="noResults" style="display: none; padding: 60px 20px; text-align: center; background: var(--bg-card); border-radius: var(--radius-lg); border: 1px solid var(--border-card); margin-top: 24px;">
+            <p style="font-size: 1.1rem; color: var(--text-muted);">No matching laboratory experiments found.</p>
+        </div>
+    </div>
+
+    <!-- Add Experiment Modal Dialog -->
+    <div id="addModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('addModal')">&times;</span>
+            <span class="editorial-badge" style="margin-bottom: 8px;">✦ REPOSITORY INGESTION</span>
+            <h2 style="margin: 8px 0 20px; font-size: 1.8rem;">Add Lab Experiment Protocol</h2>
+            
+            <form id="addExperimentForm">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div class="form-group">
+                        <label>Protocol Number</label>
+                        <input type="text" id="expNum" class="form-control" required placeholder="e.g. EXPERIMENT 06">
+                    </div>
+                    <div class="form-group">
+                        <label>Protocol Title</label>
+                        <input type="text" id="expTitle" class="form-control" required placeholder="e.g. Diffusion Denoising Models">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Short Description</label>
+                    <input type="text" id="expDesc" class="form-control" required placeholder="Concise summary of theoretical and computational goal">
+                </div>
+
+                <div class="form-group">
+                    <label>Aim &amp; Scope</label>
+                    <textarea id="expAim" class="form-control" required placeholder="State research aim..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Learning Objective</label>
+                    <textarea id="expObj" class="form-control" required placeholder="Core learning competencies..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Theoretical Foundation</label>
+                    <textarea id="expTheory" class="form-control" required placeholder="Detailed mathematical and algorithmic principles..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Requirements &amp; Dependencies</label>
+                    <input type="text" id="expReq" class="form-control" required placeholder="Python 3.10+, torch, numpy...">
+                </div>
+
+                <div class="form-group">
+                    <label>Execution Procedure (Line separated)</label>
+                    <textarea id="expProc" class="form-control" required placeholder="1. Ingest dataset&#10;2. Normalize tensors&#10;3. Train model"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Python Implementation Script</label>
+                    <textarea id="expCode" class="form-control" style="font-family: var(--font-mono); font-size: 0.85rem; height: 140px;" required placeholder="import torch&#10;# Script implementation"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Empirical Result &amp; Metrics</label>
+                    <textarea id="expResult" class="form-control" required placeholder="Summarize convergence and achieved evaluation metrics..."></textarea>
+                </div>
+
+                <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px;">
+                    <button type="button" class="btn-outline" onclick="closeModal('addModal')">Cancel</button>
+                    <button type="submit" class="btn-primary">Save to Protocol Ledger ✨</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/experiments.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
+<script async src="/.netlify/scripts/hud?variant=public" data-nf-variant="public" data-netlify-site-id="1bce00b1-c819-45f2-8f29-8f30b5c1e123" data-app-host="app.netlify.com" data-account-tier="free"></script>

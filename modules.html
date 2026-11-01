@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<!-- This site is hosted on Netlify. Anyone can build and deploy a site
+     like this one for free: https://netlify.new/?utm_campaign=loops&utm_source=ai-legible&utm_medium=owned&utm_content=comment&utm_id=1bce00b1-c819-45f2-8f29-8f30b5c1e123
+     Netlify hosting facts for this site: static/SSR served via Netlify Edge. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curriculum Modules | Data Science Digital Library</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .modules-split-layout {
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            gap: 32px;
+            align-items: start;
+        }
+
+        .modules-nav-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            position: sticky;
+            top: 96px;
+        }
+
+        .module-tab-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: var(--radius-lg);
+            padding: 20px 22px;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            box-shadow: var(--card-shadow);
+        }
+
+        .module-tab-card:hover {
+            transform: translateX(4px);
+            border-color: var(--accent-primary);
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .module-tab-card.active {
+            border: 2px solid var(--accent-primary);
+            background: #EFF6FF;
+            box-shadow: 0 8px 24px var(--accent-glow);
+        }
+
+        [data-theme="rose"] .module-tab-card.active {
+            background: rgba(255, 101, 132, 0.12);
+        }
+
+        [data-theme="midnight"] .module-tab-card.active {
+            background: rgba(59, 130, 246, 0.15);
+        }
+
+        .module-tab-badge {
+            display: inline-block;
+            font-size: 0.74rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-primary);
+            background: var(--badge-bg);
+            border: 1px solid var(--badge-border);
+            padding: 3px 10px;
+            border-radius: var(--radius-pill);
+            margin-bottom: 8px;
+        }
+
+        .module-tab-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+            line-height: 1.35;
+        }
+
+        .module-tab-desc {
+            font-size: 0.86rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .module-tab-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border-subtle);
+            padding-top: 10px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--accent-primary);
+        }
+
+        .module-viewer-panel {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pdf-frame-wrapper {
+            width: 100%;
+            height: 820px;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid var(--border-subtle);
+            background: #FFFFFF;
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        @media (max-width: 960px) {
+            .modules-split-layout {
+                grid-template-columns: 1fr;
+            }
+            .modules-nav-sidebar {
+                position: static;
+            }
+            .pdf-frame-wrapper {
+                height: 600px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="container header-content">
+            <a class='header-brand' href='/'>
+                <div class="header-logo-badge">
+                    <img src="assets/mbu_logo.png" alt="MBU Logo" style="height: 34px; width: auto; object-fit: contain;">
+                </div>
+                <div>
+                    <span class="header-brand-title">Data Science Digital Library</span>
+                    <span class="header-brand-sub">MOHAN BABU UNIVERSITY</span>
+                </div>
+            </a>
+            
+            <div class="header-nav">
+                <nav style="display: flex; gap: 6px;">
+                    <a class='nav-pill' href='/'>Profile</a>
+                    <a class='nav-pill' href='/tools'>Tools</a>
+                    <a class='nav-pill active' href='/modules'>Modules</a>
+                    <a class='nav-pill' href='/experiments'>Experiments</a>
+                </nav>
+
+                <button id="themeToggleBtn" class="theme-switch-btn" title="Toggle Visual Theme">
+                    <span id="themeLabel">☀️ Gamma Light</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container" style="padding-top: 40px; padding-bottom: 80px;">
+        
+        <!-- Header Banner -->
+        <div style="margin-bottom: 32px; text-align: left;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="editorial-badge">✦ OFFICIAL SYLLABUS &amp; STUDY MODULES</span>
+            </div>
+            <h1 style="font-size: 2.6rem; margin: 10px 0 8px; letter-spacing: -0.5px;">Curriculum Course Modules ✦</h1>
+            <p style="color: var(--text-secondary); max-width: 780px; font-size: 1.05rem;">
+                Select any module on the left to review its 10-chapter study guide, detailed syllabus descriptions, and read or download its official course material PDF on the right.
+            </p>
+        </div>
+
+        <!-- Two-Column Split Layout -->
+        <div class="modules-split-layout">
+
+            <!-- LEFT COLUMN: Module Headings Navigation -->
+            <div class="modules-nav-sidebar" id="modulesNavList">
+                
+                <!-- CHO: Course Handout Outline (Placed above 1st module) -->
+                <div class="module-tab-card active" onclick="switchModule(0)" id="moduleCard-0">
+                    <span class="module-tab-badge" style="background: rgba(0, 71, 255, 0.1); border-color: rgba(0, 71, 255, 0.3);">📑 MASTER SYLLABUS</span>
+                    <h3 class="module-tab-title">Course Handout Outline (CHO)</h3>
+                    <p class="module-tab-desc">
+                        Master Course Handout Outline covering syllabus overview, prerequisites, laboratory guidelines, and evaluation schemes across all modules.
+                    </p>
+                    <div class="module-tab-footer">
+                        <span>📄 Master Syllabus Document</span>
+                        <span>View PDF →</span>
+                    </div>
+                </div>
+
+                <!-- Module 01 -->
+                <div class="module-tab-card" onclick="switchModule(1)" id="moduleCard-1">
+                    <span class="module-tab-badge">CURRICULUM MODULE 01</span>
+                    <h3 class="module-tab-title">Introduction to Data Science</h3>
+                    <p class="module-tab-desc">
+                        Foundations of computational data analysis, data lifecycle stages, exploratory analytics philosophy, and Python data science ecosystem.
+                    </p>
+                    <div class="module-tab-footer">
+                        <span>📄 10-Chapter Official Guide</span>
+                        <span>View PDF →</span>
+                    </div>
+                </div>
+
+                <!-- Module 02 -->
+                <div class="module-tab-card" onclick="switchModule(2)" id="moduleCard-2">
+                    <span class="module-tab-badge">CURRICULUM MODULE 02</span>
+                    <h3 class="module-tab-title">Data Extraction &amp; Wrangling</h3>
+                    <p class="module-tab-desc">
+                        Data harvesting, REST APIs, JSON/CSV parsing, cleaning missing entries, tabular transformations, and outlier management.
+                    </p>
+                    <div class="module-tab-footer">
+                        <span>📄 10-Chapter Official Guide</span>
+                        <span>View PDF →</span>
+                    </div>
+                </div>
+
+                <!-- Module 03: Data Visualization (Placed under 2nd module) -->
+                <div class="module-tab-card" onclick="switchModule(3)" id="moduleCard-3">
+                    <span class="module-tab-badge">CURRICULUM MODULE 03</span>
+                    <h3 class="module-tab-title">Data Visualization</h3>
+                    <p class="module-tab-desc">
+                        Human visual perception, visual encodings, Matplotlib architecture, Seaborn statistical plots, interactive dashboards, and storytelling.
+                    </p>
+                    <div class="module-tab-footer">
+                        <span>📄 10-Chapter Official Guide</span>
+                        <span>View PDF →</span>
+                    </div>
+                </div>
+
+                <!-- Module 04 -->
+                <div class="module-tab-card" onclick="switchModule(4)" id="moduleCard-4">
+                    <span class="module-tab-badge">CURRICULUM MODULE 04</span>
+                    <h3 class="module-tab-title">Statistical Thinking &amp; Inference</h3>
+                    <p class="module-tab-desc">
+                        Probability distributions, hypothesis testing (t-tests, chi-square), confidence intervals, regression analysis, and Bayesian reasoning.
+                    </p>
+                    <div class="module-tab-footer">
+                        <span>📄 10-Chapter Official Guide</span>
+                        <span>View PDF →</span>
+                    </div>
+                </div>
+
+                <!-- Module 05 -->
+                <div class="module-tab-card" onclick="switchModule(5)" id="moduleCard-5">
+                    <span class="module-tab-badge">CURRICULUM MODULE 05</span>
+                    <h3 class="module-tab-title">Time Series Analysis and Predictive Modeling</h3>
+                    <p class="module-tab-desc">
+                        Autoregressive models, ARIMA forecasting, trend decomposition, seasonality modeling, and predictive evaluation.
+                    </p>
+                    <div class="module-tab-footer">
+                        <span>📄 10-Chapter Official Guide</span>
+                        <span>View PDF →</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- RIGHT COLUMN: Active Module Description & Embedded PDF Viewer -->
+            <div class="module-viewer-panel">
+                <div class="cyber-card" style="padding: 24px;">
+                    
+                    <!-- Dynamic Top Header Bar -->
+                    <div id="viewerHeaderBar" class="card-header-bar emerald-theme" style="margin-bottom: 20px;">
+                        <div>
+                            <span id="viewerModuleBadge" class="card-header-title">Master Syllabus</span>
+                            <h2 id="viewerModuleTitle" class="card-header-subtitle" style="font-size: 1.45rem; font-family: var(--font-heading);">
+                                Course Handout Outline (CHO)
+                            </h2>
+                            <p id="viewerModuleDesc" style="font-size: 0.92rem; color: rgba(255, 255, 255, 0.9); margin: 6px 0 0; line-height: 1.5; max-width: 600px;">
+                                Master Course Handout Outline covering syllabus overview, prerequisites, laboratory guidelines, and evaluation schemes across all modules.
+                            </p>
+                        </div>
+                        <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                            <a id="viewerDownloadBtn" href="assets/pdfs/cho.pdf" download="Course_Handout_Outline_CHO.pdf" class="btn-primary" style="background: #FFFFFF; color: #0047FF; font-size: 0.85rem; padding: 9px 20px; box-shadow: 0 4px 14px rgba(0,0,0,0.18); font-weight: 700;">
+                                📥 Download PDF
+                            </a>
+                            <a id="viewerOpenTabBtn" href="assets/pdfs/cho.pdf" target="_blank" rel="noopener noreferrer" class="btn-outline" style="background: rgba(255, 255, 255, 0.15); color: #FFFFFF; border-color: rgba(255, 255, 255, 0.35); font-size: 0.85rem; padding: 9px 16px;">
+                                Open Fullscreen ↗
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- PDF Embedded Viewer Frame -->
+                    <div class="pdf-frame-wrapper">
+                        <iframe id="pdfViewerFrame" src="assets/pdfs/cho.pdf#toolbar=1&navpanes=0&scrollbar=1" style="width: 100%; height: 100%; border: none;"></iframe>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        const MODULES_DATA = [
+            {
+                number: "Master Syllabus",
+                title: "Course Handout Outline (CHO)",
+                desc: "Master Course Handout Outline covering syllabus overview, prerequisites, laboratory guidelines, and evaluation schemes across all modules.",
+                pdf: "assets/pdfs/cho.pdf",
+                downloadName: "Course_Handout_Outline_CHO.pdf",
+                headerClass: "emerald-theme"
+            },
+            {
+                number: "Curriculum Module 01",
+                title: "Introduction to Data Science",
+                desc: "Foundations of computational data analysis, data lifecycle stages, exploratory analytics philosophy, and foundational Python scientific ecosystem.",
+                pdf: "assets/pdfs/module1.pdf",
+                downloadName: "Curriculum_Module_01_Introduction_to_Data_Science.pdf",
+                headerClass: "emerald-theme"
+            },
+            {
+                number: "Curriculum Module 02",
+                title: "Data Extraction & Wrangling",
+                desc: "Comprehensive guides for data harvesting, REST APIs, JSON/CSV parsing, cleaning missing entries, tabular transformations, and outlier management.",
+                pdf: "assets/pdfs/module2.pdf",
+                downloadName: "Curriculum_Module_02_Data_Extraction_and_Wrangling.pdf",
+                headerClass: "amber-theme"
+            },
+            {
+                number: "Curriculum Module 03",
+                title: "Data Visualization",
+                desc: "Visual encoding theory, human perception, exploratory graphical analysis with Matplotlib and Seaborn, interactive dashboards, geospatial cartography, and high-impact visual storytelling.",
+                pdf: "assets/pdfs/module3.pdf",
+                downloadName: "Curriculum_Module_03_Data_Visualization.pdf",
+                headerClass: "violet-theme"
+            },
+            {
+                number: "Curriculum Module 04",
+                title: "Statistical Thinking & Inference",
+                desc: "Rigorous statistical analysis covering probability distributions, hypothesis testing (t-tests, chi-square), confidence intervals, regression analysis, and Bayesian reasoning.",
+                pdf: "assets/pdfs/module4.pdf",
+                downloadName: "Curriculum_Module_04_Statistical_Thinking_and_Inference.pdf",
+                headerClass: "amber-theme"
+            },
+            {
+                number: "Curriculum Module 05",
+                title: "Time Series Analysis and Predictive Modeling",
+                desc: "Advanced time series methods, autoregressive models (AR, MA, ARMA, ARIMA), seasonality decomposition, trend analysis, stationary tests, and machine learning forecasting.",
+                pdf: "assets/pdfs/module5.pdf",
+                downloadName: "Curriculum_Module_05_Time_Series_Analysis_and_Predictive_Modeling.pdf",
+                headerClass: "emerald-theme"
+            }
+        ];
+
+        function switchModule(index) {
+            const data = MODULES_DATA[index];
+            if (!data) return;
+
+            // 1. Update left cards active state
+            document.querySelectorAll('.module-tab-card').forEach((card, i) => {
+                if (i === index) {
+                    card.classList.add('active');
+                } else {
+                    card.classList.remove('active');
+                }
+            });
+
+            // 2. Update right viewer header
+            document.getElementById('viewerModuleBadge').textContent = data.number;
+            document.getElementById('viewerModuleTitle').textContent = data.title;
+            document.getElementById('viewerModuleDesc').textContent = data.desc;
+
+            // 3. Update download and open buttons
+            const downloadBtn = document.getElementById('viewerDownloadBtn');
+            downloadBtn.href = data.pdf;
+            downloadBtn.setAttribute('download', data.downloadName);
+
+            const openBtn = document.getElementById('viewerOpenTabBtn');
+            openBtn.href = data.pdf;
+
+            // 4. Update header bar gradient theme
+            const headerBar = document.getElementById('viewerHeaderBar');
+            headerBar.className = 'card-header-bar ' + data.headerClass;
+
+            // 5. Update PDF iframe source
+            const frame = document.getElementById('pdfViewerFrame');
+            frame.src = data.pdf + '#toolbar=1&navpanes=0&scrollbar=1';
+        }
+    </script>
+</body>
+</html>
+<script async src="/.netlify/scripts/hud?variant=public" data-nf-variant="public" data-netlify-site-id="1bce00b1-c819-45f2-8f29-8f30b5c1e123" data-app-host="app.netlify.com" data-account-tier="free"></script>
